@@ -1,172 +1,822 @@
 <!DOCTYPE html>
-<!--
-ASSIGNMENT RULES
-- The solution must be pushed to the repository and be available for the tutors by the end of the day
-- You can ask for tutor's help
-- You can google / use StackOverflow BUT we suggest you to use just the material provided
-- To test the page, just open it with your default browser.
-- Use Bootstrap4 classes to render the page.
-- Use correctly containers and rows in order to have a great display
 
-ASSIGNMENT TOPIC 
-You are creating a website to showcase your favourite albums.
-In this page you'd like to have a short bio of yourself, the top albums of your life, 
-the worst album you ever listen to and everything related to the music you love.
-
-IMPORTANT:
-Start from the previous assignment
-
-NOTE:
-Most of the time, even the most expert of designers, need inspiration.
-Spend 30 minutes surfing the web and searching for the way of rapresenting album that you like the most.
-Could be the Amazon way, the Spotify or Apple music way or some other blog out there.
--->
-
-<html>
+<html lang="en">
   <head>
-    <!-- IMPORT ALL THE BOOSTRAP RELATED CSS & SCRIPTS-->
-
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
-    <style>
-      /* PREVIOUS STUFF */
-    </style>
+    <!-- IMPORT ALL THE BOOTSTRAP RELATED CSS & SCRIPTS-->
+
+    <link rel="stylesheet" href="style.css" />
+    <style></style>
   </head>
   <body>
-    <!-- EXERCISE 1
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <!-- 
+    - Track number
+    - Track name
+    - Track length
+    - Track featuring
+    - Live Track (checkbox) -->
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="exampleModalLabel"
+            >
+              Add track
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"
+                >&times;</span
+              >
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label
+                  for="recipient-name"
+                  class="col-form-label"
+                  >Track number:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="trackNumber"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="message-text"
+                  class="col-form-label"
+                  >Track name:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="trackName"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="message-text"
+                  class="col-form-label"
+                  >Track length:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="trackLength"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="message-text"
+                  class="col-form-label"
+                  >Track featuring:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="trackFeaturing"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="message-text"
+                  class="col-form-label"
+                  >Live track:</label
+                >
+                <input
+                  type="checkbox"
+                  name=""
+                  id="liveTrack"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              id="addTrack"
+            >
+              Add track
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light"
+    >
+      <a class="navbar-brand" href="#"
+        >Petras's Albums</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a
+              class="nav-link"
+              id="hideAlbums"
+              href="#"
+              >Hide Albums
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a
+              class="nav-link"
+              id="hideFeature"
+              href="#"
+              >Hide Feature
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a
+              class="nav-link"
+              id="hideShame"
+              href="#"
+              >Hall of Shame
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- EXERCISE 1
         Use the specific bootstrap component to implement a Breadcrumb
         -->
 
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Home</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="#">Library</a>
-        </li>
-        <li
-          class="breadcrumb-item active"
-          aria-current="page"
-        >
-          Data
-        </li>
-      </ol>
-    </nav>
+      <nav aria-label="breadcrumb" class="mt-3">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="#">Library</a>
+          </li>
+          <li
+            class="breadcrumb-item active"
+            aria-current="page"
+          >
+            Data
+          </li>
+        </ol>
+      </nav>
 
-    <!-- EXERCISE 2
-            Create a Jumbotron section with a quick explanation / image of the website
-        -->
+      <!-- EXERCISE 2
+                Create a Jumbotron section with a quick explanation / image of the website
+            -->
 
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4">Fluid jumbotron</h1>
-        <p class="lead">
-          This is a modified jumbotron that
-          occupies the entire horizontal space of
-          its parent.
-        </p>
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">
+            Petras's Albums
+          </h1>
+          <p class="lead">
+            Here you will get some taste of my
+            music.
+          </p>
+        </div>
       </div>
+
+      <button
+        class="btn btn-success mb-4"
+        data-toggle="modal"
+        data-target="#exampleModal"
+      >
+        Add Track
+      </button>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Length</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="col">1</th>
+            <td scope="col">
+              Birds in the Trap Sing McKnight (by
+              Travis Scott)
+            </td>
+            <td scope="col">3:12</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">1</th>
+            <td>
+              Rodeo (Expanded Edition) (by Travis
+              Scott)
+            </td>
+            <td>2:12</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>ASTROWORLD (by Travis Scott)</td>
+            <td>1:12</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>
+              Huncho Jack, Jack Huncho (by HUNCHO
+              JACK, Travis Scott & Quavo)
+            </td>
+            <td>2:12</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- EXERCISE 7
+                Add a "Contact Me" form in the footer.
+                The "Contact Me" form has 2 fields:
+                - Email
+                - Text of the message
+                Use the correct Bootstrap styles for styling the buttons
+            -->
+
+      <!-- EXERCISE 8 
+                Add to the footer an extra column with the same links of the top nav.
+            -->
+
+      <!-- EXERCISE 9
+                Add a button "Add Track" under the track list the album, add a nice shadow transition when the button is hovered
+            -->
+
+      <!-- EXERCISE 10
+                On "Add Track" button, open a new modal.
+                The modal shall contain a form with:
+                - Track number
+                - Track name
+                - Track length
+                - Track featuring
+                - Live Track (checkbox)
+                The fields should be inside an Input Group and divided in 2 columns.
+            -->
+
+      <!-- EXERCISE 11
+                Add 2 bootstrap buttons at the bottom of the modal window:
+                - Close => clear the fields and close the modal
+                - Add => Add the track to the list of tracks in the main page and display an alert success message 
+                - The new list-element added to the list will appear with a fade-in transition effect
+                https://getbootstrap.com/docs/4.4/components/alerts/
+                [EXTRA] Make the message disappear after 5 seconds
+                https://www.w3schools.com/jsref/met_win_settimeout.asp
+            -->
+
+      <!-- EXERCISE 12
+                All the field (except for Feat. and Live Track) are required fields and requires validation.
+                If the user clicks on the Add button and some fields are empty, a warning alert must be show
+            -->
+
+      <!-- ############### -->
+      <!-- ###  EXTRA  ### -->
+      <!-- ############### -->
+
+      <!-- EXERCISE 13
+                For each "Album cover" in your page, add a tooltip with the title
+            -->
+
+      <!-- EXERCISE 14
+                Update the header and footer links using scrollspy to render a smooth transition to the parts of the document.
+            -->
+
+      <!-- EXERCISE 15
+                Add a Album Carousel with controls to display the top 10 albums
+            -->
+
+      <!-- EXERCISE 16
+                Make every section of the page "collapsable" if the user clicks on the section title
+            -->
+
+      <div class="container mt-4" id="albums">
+        <div
+          class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4"
+        >
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse1"
+              role="button"
+            >
+              <img
+                src="/img/1.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse1">
+              <div class="card card-body title">
+                Birds in the Trap Sing McKnight
+                (by Travis Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <a
+              data-toggle="collapse"
+              href="#collapse2"
+              role="button"
+            >
+              <img
+                src="/img/2.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse2">
+              <div class="card card-body title">
+                Rodeo (Expanded Edition) (by
+                Travis Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse3"
+              role="button"
+            >
+              <img
+                src="/img/3.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse3">
+              <div class="card card-body title">
+                ASTROWORLD (by Travis Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse4"
+              role="button"
+            >
+              <img
+                src="/img/4.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse4">
+              <div class="card card-body title">
+                Huncho Jack, Jack Huncho (by
+                HUNCHO JACK, Travis Scott & Quavo)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse5"
+              role="button"
+            >
+              <img
+                src="/img/5.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse5">
+              <div class="card card-body title">
+                Champions - Single (by Kanye West,
+                Gucci Mane, Big Sean, 2 Chainz,
+                Travis Scott, Yo Gotti, Quavo &
+                Desiigner)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse6"
+              role="button"
+            >
+              <img
+                src="/img/6.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse6">
+              <div class="card card-body title">
+                A-Team - Single (by Travis Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse7"
+              role="button"
+            >
+              <img
+                src="/img/7.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse7">
+              <div class="card card-body title">
+                JACKBOYS (by JACKBOYS & Travis
+                Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse8"
+              role="button"
+            >
+              <img
+                src="/img/8.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse8">
+              <div class="card card-body title">
+                THE SCOTTS - Single (by THE
+                SCOTTS, Travis Scott & Kid Cudi)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse9"
+              role="button"
+            >
+              <img
+                src="/img/9.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse9">
+              <div class="card card-body title">
+                FRANCHISE (feat. Young Thug &
+                M.I.A.) - Single (by Travis Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse10"
+              role="button"
+            >
+              <img
+                src="/img/10.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse10">
+              <div class="card card-body title">
+                Upper Echelon (feat. T.I. & 2
+                Chainz) - Single (by Travis Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse11"
+              role="button"
+            >
+              <img
+                src="/img/11.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse11">
+              <div class="card card-body title">
+                HIGHEST IN THE ROOM - Single (by
+                Travis Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col album">
+            <a
+              data-toggle="collapse"
+              href="#collapse12"
+              role="button"
+            >
+              <img
+                src="/img/12.jpg"
+                class="img-fluid"
+              />
+            </a>
+
+            <div class="collapse" id="collapse12">
+              <div class="card card-body title">
+                Mamacita (feat. Rich Homie Quan &
+                Young Thug) - Single (by Travis
+                Scott)
+                <span
+                  class="badge badge-secondary"
+                  >Hip-hop</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jumbotron mt-4" id="feature">
+        <h1 class="display-4">The Eminem Show</h1>
+        <ul
+          class="list-group list-group list-group-horizontal"
+        >
+          <li class="list-group-item">Eminem</li>
+          <li class="list-group-item">
+            20 Songs
+          </li>
+          <li class="list-group-item">
+            May 21, 2002
+          </li>
+        </ul>
+        <hr class="my-4" />
+        <img
+          src="/img/eminem.png"
+          alt=""
+          class="img-fluid"
+        />
+      </div>
+
+      <ul class="list-group mb-4" id="shame">
+        <li class="list-group-item active">
+          Hall of Shame
+        </li>
+        <li class="list-group-item">
+          Will Smith
+        </li>
+        <li class="list-group-item">T-Pain</li>
+      </ul>
     </div>
 
-    <!-- EXERCISE 3
-            Foreach album in the favorite list, place the genre inside a badge
-        -->
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted"
+          >Petras &copy; 2020</span
+        >
+      </div>
+    </footer>
 
-    <!-- EXERCISE 4
-            Foreach album in the favorite list, use the Bootstrap Card to contain it.
-            Use card layouts to format it in the best and more compatible way.
-        -->
-
-    <!-- EXERCISE 5
-            Place the tracklist inside a Bootstrap table.
-            The row column must be alternate.
-            Use one column for the track order, one of the title and one for the length.
-            (If you want, you can also add extra columns)
-        -->
-
-    <!-- EXERCISE 6
-            Add a DELETE bootstrap button on each row of the tracklist, with appropriate transitions on the various pseudo-class states 
-            which will apply for the subsequent button you'll use.
-            Clicking on the button the row must disappear. 
-            Add a fade-out effect using a CSS transition effect
-        -->
-
-    <!-- EXERCISE 7
-            Add a "Contact Me" form in the footer.
-            The "Contact Me" form has 2 fields:
-            - Email
-            - Text of the message
-            Use the correct Bootstrap styles for styling the buttons
-        -->
-
-    <!-- EXERCISE 8 
-            Add to the footer an extra column with the same links of the top nav.
-        -->
-
-    <!-- EXERCISE 9
-            Add a button "Add Track" under the track list the album, add a nice shadow transition when the button is hovered
-        -->
-
-    <!-- EXERCISE 10
-            On "Add Track" button, open a new modal.
-            The modal shall contain a form with:
-            - Track number
-            - Track name
-            - Track length
-            - Track featuring
-            - Live Track (checkbox)
-            The fields should be inside an Input Group and divided in 2 columns.
-        -->
-
-    <!-- EXERCISE 11
-            Add 2 bootstrap buttons at the bottom of the modal window:
-            - Close => clear the fields and close the modal
-            - Add => Add the track to the list of tracks in the main page and display an alert success message 
-            - The new list-element added to the list will appear with a fade-in transition effect
-            https://getbootstrap.com/docs/4.4/components/alerts/
-            [EXTRA] Make the message disappear after 5 seconds
-            https://www.w3schools.com/jsref/met_win_settimeout.asp
-        -->
-
-    <!-- EXERCISE 12
-            All the field (except for Feat. and Live Track) are required fields and requires validation.
-            If the user clicks on the Add button and some fields are empty, a warning alert must be show
-        -->
-
-    <!-- ############### -->
-    <!-- ###  EXTRA  ### -->
-    <!-- ############### -->
-
-    <!-- EXERCISE 13
-            For each "Album cover" in your page, add a tooltip with the title
-        -->
-
-    <!-- EXERCISE 14
-            Update the header and footer links using scrollspy to render a smooth transition to the parts of the document.
-        -->
-
-    <!-- EXERCISE 15
-            Add a Album Carousel with controls to display the top 10 albums
-        -->
-
-    <!-- EXERCISE 16
-            Make every section of the page "collapsable" if the user clicks on the section title
-        -->
-
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document
+        .querySelector("#hideAlbums")
+        .addEventListener("click", () => {
+          document.querySelector("#albums").style
+            .display === "none"
+            ? (document.querySelector(
+                "#albums"
+              ).style.display = "block")
+            : (document.querySelector(
+                "#albums"
+              ).style.display = "none");
+        });
+
+      document
+        .querySelector("#hideFeature")
+        .addEventListener("click", () => {
+          document.querySelector("#feature").style
+            .display === "none"
+            ? (document.querySelector(
+                "#feature"
+              ).style.display = "block")
+            : (document.querySelector(
+                "#feature"
+              ).style.display = "none");
+        });
+
+      document
+        .querySelector("#hideShame")
+        .addEventListener("click", () => {
+          document.querySelector("#shame").style
+            .display === "none"
+            ? (document.querySelector(
+                "#shame"
+              ).style.display = "block")
+            : (document.querySelector(
+                "#shame"
+              ).style.display = "none");
+        });
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+          const imgCount = document.querySelectorAll(
+            "img"
+          ).length;
+          document.querySelector(
+            "footer>.container"
+          ).innerText += `, loaded ${imgCount} images`;
+        }
+      );
+
+      [
+        ...document.querySelectorAll(
+          ".btn-danger"
+        ),
+      ].forEach((btn) =>
+        btn.addEventListener("click", deleteRow)
+      );
+
+      function deleteRow(e) {
+        const parent =
+          e.target.parentElement.parentElement;
+        parent.style.visibility = "hidden";
+        parent.style.opacity = "0";
+        console.log(
+          e.target.parentElement.parentElement
+        );
+
+        setTimeout(() => {
+          parent.style.display = "none";
+        }, 1000);
+      }
+
+      document
+        .querySelector("#addTrack")
+        .addEventListener("click", addTrack);
+
+      function addTrack() {
+        //     - Track number
+        // - Track name
+        // - Track length
+        // - Track featuring
+        // - Live Track (checkbox) -->
+        const trackNumber = document.querySelector(
+          "#trackNumber"
+        );
+        const trackName = document.querySelector(
+          "#trackName"
+        );
+        const trackLength = document.querySelector(
+          "#trackLength"
+        );
+        const trackFeaturing = document.querySelector(
+          "#trackFeaturing"
+        );
+        const liveTrack = document.querySelector(
+          "#liveTrack"
+        );
+        console.log(
+          trackNumber.value,
+          trackName.value,
+          trackLength.value,
+          trackFeaturing.value,
+          liveTrack.value
+        );
+        $("#exampleModal").modal("hide");
+      }
+    </script>
   </body>
 </html>
